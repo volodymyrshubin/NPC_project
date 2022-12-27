@@ -1,0 +1,43 @@
+Web application for project management. 
+I am looking for a C# .Net developer who will write a web application as soon as possible.
+It is not a commercial project, so requirements is not very high.
+
+Project should be written on C#, using ASP. Net MVC and Entity Framework Core(for a database).
+Functionality should be at least partially covered by unit tests.
+In the project must be 3 types of roles: user; teacher; student.
+Structure of the project:
+1) Sign up page.
+User can sign up as teacher or as student.
+2) Login page.
+User can log in as teacher or as student. 
+3) Room creation page.
+This page must be available for teacher only.
+Here can create a "room" to manage development of the project.
+Each room must have 5 parameters:
+- project name.
+- students fullname (fullname of a student-developer).
+- year (year of the course when student develop his project).
+- type of the project (it must diploma or course project).
+- status of project (finished or not).
+When creating a room teacher must fill fields:
+1. project name
+2. students fullname
+3.  year
+4. type of the project
+5. student email ( to invite student to the room)
+Projects can be searched.
+Projects can be deleted.
+4) Room page ( it is available both for teacher and student)
+Here must be 3 tabs:
+a) 1st tab - attachment tab.
+Here teacher can add attachments ( some helpful info, books or any materials to ease studying).
+Files with  .txt ; .doc ; .docx ; .pdf must be supported.
+b)2nd tab - board tab.
+A simple board like on Trello or Jira to manage development circle.
+c)3rd tab - a simple.
+So student can easily communicate with teacher.
+5) profile modal page .
+Here teacher or student can edit his profile and log out of the system.
+
+
+

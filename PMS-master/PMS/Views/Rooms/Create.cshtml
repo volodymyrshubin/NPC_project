@@ -1,0 +1,56 @@
+﻿@model PMS.Models.Room
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h4>Create Room</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProjectName" class="control-label"></label>
+                <input asp-for="ProjectName" class="form-control" />
+                <span asp-validation-for="ProjectName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StudentIds, new { @class = "control-label" })
+               
+                    @Html.ListBoxFor(model => model.StudentIds, new MultiSelectList(Model.drpStudents, "Value", "Text"), new { @class = "form-control", multiple = "multiple", id = "Students_dropdown" })
+                    <span asp-validation-for="StudentIds" class="text-danger"></span>
+               
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectType" class="control-label"></label>
+                <select asp-for="ProjectType" class="form-control">
+                    <option value="">Please select</option>
+                    <option value="Diploma">Diploma</option>
+                    <option value="Course Project">Course Project</option>
+                </select>
+                <span asp-validation-for="ProjectType" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsCompleted" /> @Html.DisplayNameFor(model => model.IsCompleted)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

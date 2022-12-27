@@ -1,0 +1,166 @@
+﻿@{ Layout = null; }
+    @model LoginViewModel
+    @using PMS.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            min-width: 320px;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        #pageWrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .formBlock {
+            min-height: 100vh;
+            height: 1005%;
+            background-size: cover;
+        }
+
+            .formBlock .container {
+                padding-top: 60px;
+                padding-bottom: 60px;
+            }
+
+        @@media (min-width: 768px) {
+            .formBlock .container {
+                padding-top: 100px;
+                padding-bottom: 100px;
+            }
+
+            .formBlock .container {
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+        }
+
+        .loginFrom {
+            padding: 25px 25px 18px;
+            box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
+            -webkit-box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
+        }
+
+            .loginFrom h1 {
+                font-size: 25px;
+                line-height: 27px;
+                margin-bottom: 18px;
+            }
+
+            .loginFrom .title {
+                font-size: 14px;
+                line-height: 18px;
+                font-weight: 600;
+                margin-bottom: 6px;
+            }
+
+        @@media (min-width: 576px) {
+            .loginFrom {
+                padding-top: 30px;
+                padding-bottom: 22px;
+            }
+
+                .loginFrom h1 {
+                    font-size: 28px;
+                    line-height: 34px;
+                    margin-bottom: 20px;
+                }
+
+                .loginFrom .title {
+                    font-size: 16px;
+                }
+        }
+
+        @@media (min-width: 992px) {
+            .loginFrom {
+                padding: 50px 40px 35px;
+            }
+
+                .loginFrom h1 {
+                    font-size: 34px;
+                    line-height: 36px;
+                }
+        }
+
+        .loginFrom .form-group {
+            margin-bottom: 16px;
+        }
+
+        .loginFrom .form-control {
+            height: 45px;
+        }
+
+            .loginFrom .form-control:focus {
+                box-shadow: none;
+            }
+
+        .loginFrom .btn {
+            padding: 11px 14px;
+            font-size: 18px;
+            line-height: 20px;
+            min-width: 105px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="pageWrapper">
+        <main>
+            <div class="formBlock d-flex" style="background-image: url(../../bg.png);">
+                <div class="alignCenter w-100 d-flex align-items-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-7 offset-md-5 col-lg-6 offset-lg-6">
+                                <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                                    <h4>
+                                        Project Manager
+                                    </h4>
+                                    <hr />
+                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <h5 class="text-capitalize font-weight-bold">Log in as teacher or student</h5>
+                                    <div class="form-group">
+                                        <label class="title text-capitalize">Username : </label>
+                                        <input asp-for="UserName" class="form-control" />
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="title text-capitalize">Password:</label>
+                                        <input asp-for="Password" class="form-control" />
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button class="btn btn-warning font-weight-bold mb-0 text-capitalize mt-n2" type="submit">Login</button>
+                                    </div>
+                                </form>
+                                <br />
+                                OR
+                                <br />
+                                <p class="text-info"><b>Register as Student Or Teacher</b></p>
+                                <a class="btn btn-primary font-weight-bold mb-0 text-capitalize mt-n2" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
+

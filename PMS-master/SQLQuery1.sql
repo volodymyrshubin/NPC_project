@@ -1,0 +1,2 @@
+﻿INSERT [dbo].[AspNetRoles] ([Description], [CreatedDate], [IPAddress], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'Student', CAST(N'2021-05-07 00:00:00.0000000' AS DateTime2), NULL, N'Student', N'STUDENT', NULL)
+INSERT [dbo].[AspNetRoles] ([Description], [CreatedDate], [IPAddress], [Name], [NormalizedName], [ConcurrencyStamp]) VALUES (N'Teacher', CAST(N'2021-05-07 00:00:00.0000000' AS DateTime2), NULL, N'Teacher', N'TEACHER', NULL)

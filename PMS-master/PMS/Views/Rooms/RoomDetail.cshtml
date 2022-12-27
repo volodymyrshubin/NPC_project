@@ -1,0 +1,281 @@
+﻿
+@{
+    ViewData["Title"] = "RoomDetail";
+}
+<style>
+    .project-tab {
+        padding: 10%;
+        margin-top: -8%;
+    }
+
+        .project-tab #tabs {
+            background: #007b5e;
+            color: #eee;
+        }
+
+            .project-tab #tabs h6.section-title {
+                color: #eee;
+            }
+
+            .project-tab #tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+                color: #0062cc;
+                background-color: transparent;
+                border-color: transparent transparent #f3f3f3;
+                border-bottom: 3px solid !important;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+        .project-tab .nav-link {
+            border: 1px solid transparent;
+            border-top-left-radius: .25rem;
+            border-top-right-radius: .25rem;
+            color: #0062cc;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+            .project-tab .nav-link:hover {
+                border: none;
+            }
+
+        .project-tab thead {
+            background: #f3f3f3;
+            color: #333;
+        }
+
+        .project-tab a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+        }
+</style>
+<h1>Room Page</h1>
+<br />
+<section id="tabs" class="project-tab">
+    <div class="container">
+        <div class="row">
+            @if (ViewBag.Message != "")
+            {
+                <div class="alert alert-success">
+                    <strong>Success!</strong> @ViewBag.Message
+                </div>
+            }
+            <div class="col-md-12">
+                <nav>
+                    <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#attachments" role="tab" aria-controls="nav-home" aria-selected="true">Attachments</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#board" role="tab" aria-controls="nav-profile" aria-selected="false">Board</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#discussion" role="tab" aria-controls="nav-contact" aria-selected="false">Channel</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="attachments" role="tabpanel" aria-labelledby="nav-home-tab">
+                        @if (this.User.IsInRole("Teacher"))
+                        {
+                            <form method="post" enctype="multipart/form-data" asp-controller="Rooms" asp-action="UploadFiles">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <p>Upload one or more files</p>
+                                        <input type="file" name="files" multiple />
+                                        <input type="hidden" name="RoomId" value="@ViewBag.RoomId" />
+                                        <input type="hidden" name="StudentId" value="@ViewBag.StudentId" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <input class="btn btn-primary" type="submit" value="Upload" />
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                        <br />
+                        <h4 class="text-info">Files</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>File Name</th>
+                                    @if (this.User.IsInRole("Teacher"))
+                                    {
+                                        <th></th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.RoomFiles.Count > 0)
+                                {
+                                    int ind = 0;
+                                    foreach (var file in ViewBag.RoomFiles)
+                                    {
+                                        ind++;
+                                        <tr>
+                                            <td>@ind</td>
+                                            <td><u><a href="~/@file.FilePth" target="_blank">@file.FileName</a></u></td>
+                                            @if (this.User.IsInRole("Teacher"))
+                                            {
+                                                <td>
+                                                    <form method="post" asp-controller="Rooms" asp-action="DeleteFile">
+                                                        <input type="hidden" name="FileId" value="@file.Id" />
+                                                        <input type="hidden" name="RoomId" value="@ViewBag.RoomId" />
+                                                        <input type="hidden" name="StudentId" value="@ViewBag.StudentId" />
+                                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                                    </form>
+                                                </td>
+                                            }
+
+                                        </tr>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="2" align="center">No file available for this room</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="board" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        @if (this.User.IsInRole("Teacher"))
+                        {
+                            <form method="post" class="form-ho" asp-controller="Rooms" asp-action="CreateTask">
+                                <input type="hidden" name="RoomId" value="@ViewBag.RoomId" />
+                                <input type="hidden" name="StudentId" value="@ViewBag.StudentId" />
+                                <br />
+                                <div class="form-group row">
+                                    <label class="col-md-2">Task Name</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" name="Name" />
+                                    </div>
+                                    <label class="col-md-2">Task Status</label>
+                                    <div class="col-md-4">
+                                        <select class="form-control" name="Status">
+                                            <option value="To Do">To Do</option>
+                                            <option value="In Progress">In Progress</option>
+                                            <option value="Done">Done</option>
+                                            <option value="On Hold">On Hold</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-2">Task Description</label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="Description" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <input class="btn btn-primary float-right" type="submit" value="Save" />
+                                    </div>
+                                </div>
+                            </form>
+                        }
+                        <br />
+                        <h4 class="text-info">Tasks</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Task Name</th>
+                                    <th>Task Description</th>
+                                    <th>Task Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.RoomTasks.Count > 0)
+                                {
+                                    int ind = 0;
+                                    foreach (var task in ViewBag.RoomTasks)
+                                    {
+                                        ind++;
+                                        <tr>
+                                            <td>@ind</td>
+                                            <td>@task.Name</td>
+                                            <td>@task.Description</td>
+                                            <td>@task.Status</td>
+                                            <td>
+                                                <a asp-action="EditTask" asp-route-id="@task.Id" class="btn btn-outline-success">Edit</a>
+                                            </td>
+
+                                        </tr>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5" align="center">No task available</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="discussion" style="height:500px;background-color:#dccccc" role="tabpanel" aria-labelledby="nav-contact-tab">
+                        <div class="signalr-demo">
+
+                            <ul id="messageList" style="text-align:left;height:400px;border-radius:20px;list-style:none"></ul>
+                            <div id="senderUId" style="display:none">@ViewBag.UserId</div>
+                            <div class="form-group row text-center">
+                                <input type="text" class="form-control col-md-8" id="messagebox" placeholder="enter message" style="margin-left:8%"/>
+                                
+                                <input type="button" class="btn btn-outline-success col-md-2" value="Send Message" id="sendButton" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/js/microsoft/signalr/dist/browser/signalr.js"></script>
+<script type="text/javascript">
+    "use strict";
+    var connection = new signalR.HubConnectionBuilder().withUrl("/MessageHub").build();
+    connection.start().then(function () {
+        var room = "@ViewBag.StudentId" + "@ViewBag.RoomId";
+        connection.invoke('JoinGroup', room).catch(function (err) {
+            return console.error(err.toString());
+        });
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+     //var room = "@ViewBag.StudentId" + "@ViewBag.RoomId";
+    connection.on('ReceiveMessage', (userid,message) => {
+        console.log(userid);
+        appendLine(userid, message);
+    }); 
+    function appendLine(uid, message) {
+        let nameElement = document.createElement('strong');
+        nameElement.innerText = `${uid}:`;
+        let msgElement = document.createElement('em');
+        msgElement.innerText = `${message}`;
+        let li = document.createElement('li');
+        li.appendChild(nameElement);
+        li.appendChild(msgElement);
+        document.getElementById("messageList").appendChild(li);
+
+    };
+</script>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sendButton").on("click", function () {
+                btnsend();
+            });
+        function btnsend() {
+            let message = $('#messagebox').val();
+            let sender = $('#senderUId').text();
+            $('#messagebox').val('');
+            var room = "@ViewBag.StudentId" + "@ViewBag.RoomId";
+            connection.invoke('SendMessageToGroup', room, sender, message);
+            }
+
+            
+        });
+    </script>
+}
+

@@ -1,0 +1,34 @@
+﻿@using PMS.Models.Context
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+    <li class="nav-item">
+        @if (this.User.IsInRole("Teacher"))
+        {
+            <a class="nav-link text-dark" asp-area="" asp-action="MyProfile" asp-controller="Account" title="My Profile">Hello @User.Identity.Name! you'r logged in as Teacher</a>
+        }
+        else
+        {
+    <a class="nav-link text-dark" asp-area="" asp-action="MyProfile" asp-controller="Account" title="My Profile">Hello @User.Identity.Name! you'r logged in as Student</a>
+        }
+    </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-action="Logout" asp-controller="Account" role="form">
+                <button type="submit" class="nav-link btn btn-link text-dark btn btn-outline-primary">Logout</button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

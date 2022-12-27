@@ -1,0 +1,35 @@
+﻿@model PMS.Models.ProfileViewModel
+<style>
+    .input {
+        width: 80%;
+        padding: 10px;
+        border-radius: 20px;
+        margin-top:30px;
+    }
+    
+</style>
+<h3 class="text-info text-center">Update Profile Information</h3>
+<br />
+<div class="col-md-6 offset-4" style="background-color: #c7c1c1;
+        height: 400px;
+        padding: 36px;
+        border-radius: 20px;
+        text-align: center;
+">
+    @if (ViewBag.Message != "")
+    {
+        <div class="alert alert-success">
+            <strong>Success!</strong> @ViewBag.Message
+        </div>
+    }
+    <form method="post" asp-controller="Account" asp-action="MyProfile">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input class="input" type="text" asp-for="UserName" title="username" required />
+        <input class="input" type="email" asp-for="Email" title="email" required />
+        <br />
+        <br />
+        <button id="btnusername" type="submit" class="btn btn-info">Update Profile</button>
+    </form>   
+    <br />
+    <a asp-action="ChangePassword" asp-controller="Account" class="btn btn-info">Update Password</a>
+</div>
