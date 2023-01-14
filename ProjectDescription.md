@@ -4,15 +4,15 @@ NPC is a web service that helps teachers track student's progress on projects.
 ## Product features
 The service will have the following major features:
 - authorization and authentication of users using built-in DotNet authorization;
-- (For teacher)the ability to create a room(project) of students working on same project;
-- the ability to create tasks in rooms for separate students and track their progress on them;
+- (For teacher)the ability to create a room of students working on same project;
+- the ability to create tasks in rooms;
 - abiity to add files to the room that will be accessible by every student;
 - Login/log-out functionality
 
 ## Assumptions and dependencies
 The system will be developed by using DotNet platform. Other dependencies will also
 include:
-● JavaScript for frontend;
+● JavaScript;
 ● MSSQL;
 ● Ajax;
 ● AWS.
@@ -40,13 +40,13 @@ Students that have already authenticated:
 - Can message in room chat;
 - Can upload files to room;
 - Can change their account info;
-- Can update status of their tasks;
 - Can sign out;
 
 Teachers that have already authenticated:
 - Can create rooms;
 - Can edit rooms;
 - Can add tasks;
+- Can add attachments to room;
 - Can update task statuses of any student; 
 - Can delete room;
 - Can sign out.
