@@ -52,7 +52,7 @@ We store data about users for a period of 1 year of inactivity. Also users can a
 
 ## Retention period
 We retain user data as long as user is willing to. We store rooms data for a period of 1 year after they are expired (baser on Year column). 
-Files are stored untill they are deleted by user who uploaded them or untill user wants to delte his account. 
+Files are stored untill they are deleted by user who uploaded them or untill user wants to delete his account. 
 
 ## Access to data and security measures
 Access to files and user data is granted only to authorized employees and contractors who require access for the purpose of maintaining the service or responding to user requests.
